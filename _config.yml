@@ -7,7 +7,7 @@ url:              http://uglyyouth.com
 owner:
   name:           Ugly Youth
   avatar:         bio-photo.jpg
-  bio:            "A day is a miniature of eternity.."
+  bio:            "---唯有美食与爱不可辜负"
   email:          ugly.youth@gmail.com
   # Social networking links are used in author-bio sidebar. Update and remove as you like.
   twitter:        
@@ -40,8 +40,8 @@ links:
     url: /posts/
   - title: Theme Setup
     url: /theme-setup/
-  - title: Made Mistakes
-    url: http://mademistakes.com
+  - title: My Github
+    url: https://github.com/uglyyouth
     external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
