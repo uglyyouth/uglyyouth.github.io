@@ -38,8 +38,6 @@ links:
     url: /about/
   - title: Posts
     url: /posts/
-  - title: Theme Setup
-    url: /theme-setup/
   - title: My Github
     url: https://github.com/uglyyouth
     external: true
