@@ -22,7 +22,7 @@ header, footer {
 	background-position: center;
 	background-size: cover;
 	background-attachment: scroll;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "微软雅黑", Helvetica, Arial, sans-serif;
 }
 
 header a, footer a {
@@ -159,7 +159,7 @@ img.site-icon-page {
 }
 
 #article {
-	font-family: "PT Serif", Georgia, "Times New Roman", serif;
+	font-family: "微软雅黑", Georgia, "Times New Roman", serif;
 	font-weight: 400;
 	letter-spacing: 0px;
 	font-size:20px;
