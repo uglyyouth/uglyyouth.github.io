@@ -1,86 +1,46 @@
-<!doctype html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
-<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
-<head>
-{% include _head.html %}
-</head>
+---
+layout: default
+article: true
+---
 
-<body class="post">
-
-{% include _browser-upgrade.html %}
-
-{% include _navigation.html %}
-
-{% if page.image.feature %}<div class="image-wrap">
-  <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }} feature image">
-  {% if page.image.credit %}<span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>{% endif %}
-</div><!-- /.image-wrap -->{% endif %}
-
-<div id="main" role="main">
-  <div class="article-author-side">
-    {% include _author-bio.html %}
-  </div>
-  <article>
-    <div class="headline-wrap">
-      <h1>{{ page.title }}</h1>
-    </div><!--/ .headline-wrap -->
-    <div class="article-wrap">
-      {{ content }}
-      <hr />
-      <footer role="contentinfo">
-        <div class="article-author-bottom">
-          {% include _author-bio.html %}
-        </div>
-        <p class="byline"><strong>{{ page.title }}</strong> was published on <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.modified %} and last modified on <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time>{% endif %} by <a href="{{ site.url }}/about" title="About {{ site.owner.name }}">{{ site.owner.name }}</a>.</p>
-      </footer>
-    </div><!-- /.article-wrap -->
-  </article>
-</div><!-- /#main -->
-  {% if page.comments %}
-
-
-    <div id="disqus_thread">
-       <div class="article-wrap">
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'uglyyouth'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-           </div><!-- /.article-wrap -->
-    </div>
-
-{% endif %}
-    
-<div class="footer-wrap">
-  <div class="related-articles">
-  <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/posts/">View all posts</a>)</small></h4>
-    <ul>
-    {% for post in site.related_posts limit:3 %}
-      <li><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
-    {% endfor %}
-    </ul>
-    <hr />
-  </div><!-- /.related-articles -->
-
-
-
-
-  <footer>
-    {% include _footer.html %}
-  </footer>
-</div><!-- /.footer-wrap -->
-
-{% include _scripts.html %}	        
-
-</body>
-</html>
+<header class="{% if page.dark %}dark{% else %}clean{% endif %}" style="background-image: url({% if page.image %}{{ page.image }}{% else %}{{ site.cover }}{% endif %});{% if page.background_position %} background-position: {{ page.background_position }};{% endif %}height: 100%;">
+	{% if page.video %}
+		<video id="bg-video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+			{% if page.video_webm %}<source src="{{ page.video_webm }}" type="video/webm">{% endif %}
+			{% if page.video_ogv %}<source src="{{ page.video_ogv }}" type="video/ogg ogv">{% endif %}
+			{% if page.video_mp4 %}<source src="{{ page.video_mp4 }}" type="video/mp4">{% endif %}
+		</video>
+	{% endif %}
+	{% include top.html %}
+	<div id="post-info">
+		<h1>{{ page.title }}</h1>
+		{% if page.quote %}
+			<h2>{{ page.quote }}</h2>
+		{% endif %}
+		<a class="site-title" href="{{ site.url }}"><img src="{{ site.icon }}" class="site-icon-small">{{ site.title }}</a>, in {{ page.date | date_to_long_string }}
+	</div>
+	<div id="nav-icon" style="bottom: 60px;">
+		<a class="scroll" data-speed="1000" href="#article"><span class="genericon genericon-expand"></span></a>
+	</div>
+</header>
+<div id="article">
+	{{ content }}
+</div>
+{% for post in site.related_posts limit:1 %}
+<footer class="{% if post.dark %}dark{% else %}clean{% endif %}" style="background-image: url({% if post.image %}{{ post.image }}{% else %}{{ site.cover }}{% endif %});{% if post.background_position %} background-position: {{ post.background_position }};{% endif %}height: 75%; min-height: 500px;">
+	<div id="nav-icon" style="top: 25px;">
+		<a class="scroll" data-speed="1000" href="#article"><span class="genericon genericon-collapse"></span></a>
+	</div>
+	<div id="post-info">
+		<h3>Featured post</h3>
+		<a href="{{ post.url }}">
+			<h1>{{ post.title }}</h1>
+			{% if post.quote %}
+				<h2>{{ post.quote }}</h2>
+			{% endif %}
+		</a>
+	</div>
+	<p class="copyright">&copy;{{ site.time | date: "%Y" }}, <a href="{{ site.copyright.url }}" target="_blank">{{ site.copyright.author }}</a>. <a href="{{ site.copyright.type_url }}" target="_blank">{{ site.copyright.type_title }}</a>.</p>
+</footer>
+{% endfor %}
+<script src="/assets/js/smooth-scroll.js"></script>
