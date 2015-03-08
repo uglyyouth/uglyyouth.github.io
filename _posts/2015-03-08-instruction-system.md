@@ -113,7 +113,7 @@ main:
     <tr>
       <td>3</td>
       <td>esp</td>
-      <td>eip->`addl $2,%eax`</td>
+      <td>eip->`addl $2,%eax`语句</td>
     </tr>
 
   </tbody>
@@ -158,7 +158,7 @@ main:
     <tr>
       <td>3</td>
       <td></td>
-      <td>EIP->`addl $2,%eax`</td>
+      <td>EIP->`addl $2,%eax`语句</td>
     </tr>
     <tr>
       <td>4</td>
@@ -219,7 +219,7 @@ main:
     <tr>
       <td>3</td>
       <td>esp</td>
-      <td>EIP->`addl $2,%eax`</td>
+      <td>EIP->`addl $2,%eax`语句</td>
     </tr>
   </tbody>
 </table>
@@ -232,7 +232,7 @@ main:
 <table>
   <thead>
     <tr>
-      <th>寄存器</th>
+      <th>最终寄存器的情况</th>
 
     </tr>
   </thead>

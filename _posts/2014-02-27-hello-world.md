@@ -2,8 +2,8 @@
 layout: post
 title: "Hello,My Blog"
 date: 2014-02-27 22:10:11 +0800
-comments: true
-categories: Null
+image: false
+video: false
 ---
 
 >Be Smart. Be Generous. Be Thoughtful.
