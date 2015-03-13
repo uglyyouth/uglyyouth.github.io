@@ -41,6 +41,7 @@ int main(void)
 {% include image.html url="/media/2015-3-8/ter.png" width="100%" description="通过gcc –S –o main.s main.c -m32命令实现" %}
 
 - 反汇编文件
+
 {% include image.html url="/media/2015-3-8/mains.png" width="100%" description="VI中查看" %}
 
 {% include image.html url="/media/2015-3-8/arm.png" width="100%" description="通过把不相关的语句删除后的反汇编程序" %}
@@ -253,11 +254,20 @@ main:
   </tbody>
 </table>
 
+
+| 最终寄存器的情况 |
+|:--------|
+| ebp指向标号0   |
+| esp指向标号0   |
+| eax中最后结果12  ｜
+
+
 ##总结
 
 正如开头所说，计算机是通过连续执行每一条的机器语句而实现工作的。
 
 计算机中执行指令系统主要依靠寄存器以及内存的代码段数据段等的结合，并通过堆栈实现。
+
 站在纯计算机的角度来说，实际上就是一条又一条指令的实现。而站在高级编程语言的角度上，
 在函数之间互相调用的过程中，是通过在调用函数前向堆栈中压入当前环境的重要变量实现保护现场的。
 这种方式其实与计算机中的程序中断的概念类似。通过esp，ebp，eip这几个寄存器来控制堆栈的情况。
