@@ -11,7 +11,7 @@ tagline:	'blog'
 description:	'A day is a miniature of eternity'
 url:		http://uglyyouth.com
 commentsystem:	google
-disqus:		camporez
+disqus:		uglyyouth
 
 author:
   name:		'uglyyouth'
@@ -30,8 +30,13 @@ social:
     url:	https://github.com/uglyyouth
     desc:	Fork me on github
 
+  - icon: feed
+    url:  http://uglyyouth/atom.xml
+    desc: Subscribe to my feed
 
-
+  - icon: googleplus-alt
+    url:  https://google.com/+IanCamporezBrunelli
+    desc: Add me on google+
 
 
 menu:
