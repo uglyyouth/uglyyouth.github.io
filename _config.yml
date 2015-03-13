@@ -10,7 +10,7 @@ title:		UglyYouth
 tagline:	'blog'
 description:	'A day is a miniature of eternity'
 url:		http://uglyyouth.com
-commentsystem:	google
+commentsystem:	disqus
 disqus:		uglyyouth
 
 author:
