@@ -1,75 +1,50 @@
-title:            uglyyouth
-description:      A day is a miniature of eternity
-# Your site's domain goes here. Leave localhost server or blank when working locally.
-url:              http://uglyyouth.com
+# Dependencies
+markdown:	redcarpet
+pygments:	true
 
-# Owner/author information
-owner:
-  name:           Ugly Youth
-  avatar:         bio-photo.jpg
-  bio:            "---唯有美食与爱不可辜负"
-  email:          ugly.youth@gmail.com
-  # Social networking links are used in author-bio sidebar. Update and remove as you like.
-  twitter:        
-  facebook:       
-  github: https://github.com/uglyyouth        
-  stackoverflow: 
-  linkedin:       
-  instagram:      
-  lastfm:         
-  tumblr: 
-  pinterest: 
-  foursquare: 
-  steam: 
-  dribbble: 
-  # For Google Authorship https://plus.google.com/authorship
-  google_plus:
+# Permalinks
+permalink:	/blog/:title
 
-# Analytics and webmaster tools stuff goes here
-google_analytics:   
-google_verify:      
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:        
+# Setup
+title:		UglyYouth
+tagline:	'blog'
+description:	'A day is a miniature of eternity'
+url:		http://uglyyouth.com
+commentsystem:	google
+disqus:		uglyyouth
 
-# Links to include in top navigation
-# For external links add external: true
-links:
-  - title: About
-    url: /about/
-  - title: Posts
-    url: /posts/
-  - title: My Github
-    url: https://github.com/uglyyouth
-    external: true
+author:
+  name:		'uglyyouth'
+  url:
 
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    Asia/Hong_Kong
-future:      true
-pygments:    true
-markdown:    kramdown
+paginate:	5
 
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title/
+# Custom vars
+icon:		/assets/images/icon.png
+cover:  /assets/images/cover.jpg
 
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  use_coderay: false
+social:
 
-  coderay:
-    coderay_line_numbers: 
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
 
-include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+  - icon:	github
+    url:	https://github.com/uglyyouth
+    desc:	Fork me on github
 
-layout: default
-comments : true
-provider : disqus
-disqus:
-short_name : uglyyouth
+  - icon: feed
+    url:  http://uglyyouth/atom.xml
+    desc: Subscribe to my feed
+
+
+
+menu:
+  - title:	Home
+    url:	/
+
+  - title:	About
+    url:	/about
+
+copyright:
+  author:	uglyyouth
+  url:		http://uglyyouth.com
+  type_title:	Some rights reserved
+  type_url:	http://creativecommons.org/licenses/by-nc/2.5
