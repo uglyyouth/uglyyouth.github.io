@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Study less,learn more读书笔记"
-date: 2014-04-13 12:53:00
+quote:
 image: false
 video: false
 ---

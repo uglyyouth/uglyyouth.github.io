@@ -10,16 +10,18 @@ title:		UglyYouth
 tagline:	'blog'
 description:	'A day is a miniature of eternity'
 url:		http://uglyyouth.com
+commentsystem:	google
+disqus:		camporez
 
 author:
   name:		'uglyyouth'
-  url:		
+  url:
 
 paginate:	5
 
 # Custom vars
 icon:		/assets/images/icon.png
-cover:		
+cover:  /assets/images/cover.jpg
 
 social:
 
@@ -31,16 +33,16 @@ social:
 
 
 
-    
+
 menu:
   - title:	Home
     url:	/
-    
+
   - title:	About
     url:	/about
-    
+
 copyright:
-  author:	Camporez
-  url:		http://camporez.com
+  author:	uglyyouth
+  url:		http://uglyyouth.com
   type_title:	Some rights reserved
   type_url:	http://creativecommons.org/licenses/by-nc/2.5

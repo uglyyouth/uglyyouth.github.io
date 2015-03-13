@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Hello,My Blog"
-date: 2014-02-27 22:10:11 +0800
+quote:
 image: false
 video: false
 ---
