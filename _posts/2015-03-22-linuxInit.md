@@ -196,8 +196,9 @@ static int __ref kernel_init(void *unused)
 ![init6](/media/2015-3-22/init6.png)
 
 可以看出，这个时候1号进程已经被创建了。
+
 如果再接着执行到`kthreadd_task = find_task_by_pid_ns(pid, &init_pid_ns);`可以看到这个时候pid已经变为2了。
-（kthreadd的用途是管理和调度其他内核线程）
+（[kthreadd](http://www.cs.ucsb.edu/~rich/class/cs170/notes/Kthreads/index.html)的用途是管理和调度其他内核线程）
 
 ![init7](/media/2015-3-22/init7.png)
 
@@ -205,6 +206,8 @@ static int __ref kernel_init(void *unused)
 ###关于`cpu_idle_loop`
 
 rest_init最后`cpu_startup_entry(CPUHP_ONLINE);`：
+
+
 ~~~ c
 
 void cpu_startup_entry(enum cpuhp_state state)
@@ -216,7 +219,7 @@ void cpu_startup_entry(enum cpuhp_state state)
 
 ~~~
 
-此函数是一个一个while(1)循环，即为我们的0号进程。
+此函数是一个while(1)循环，即为我们的0号进程。
 
 在循环中它将会调用schedule函数以便在运行队列中有新进程加入时切换到该新进程上。
 
@@ -232,8 +235,10 @@ void cpu_startup_entry(enum cpuhp_state state)
 至第一个用户进程init结束，
 调用了一系列的初始化函数对所有的内核组件进行初始化。
 其中，**start_kernel、rest_init、kernel_init**等函数构成了整个初始化过程的主线。
-2. start_kernel()在最后会调用rest_init()，
+2. start_kernel在开头就调用宏`INIT_TASK`完成对`init_task`的赋值，即**0号进程**。也就是后面的idle进程
+3. start_kernel()在最后会调用rest_init()，
 这个函数会启动一个内核线程来运行kernel_init()，
 自己则调用cpu_idle()进入空闲循环，让调度器接管控制权。
 抢占式的调度器就可以周期性地接管控制权，从而提供多任务处理能力。
-3. kernel_init()用于完成初始化rootfs、加载内核模块、挂载真正的根文件系统。
+4. kernel_init()用于完成初始化rootfs、加载内核模块、挂载真正的根文件系统。
+即**1号进程**。
