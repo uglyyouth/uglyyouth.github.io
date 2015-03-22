@@ -37,10 +37,12 @@ start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
 
 使用一个[小OS](https://github.com/mengning/menu)来分析内核启动，如下图。
 
+
 ![init1](/media/2015-3-22/init1.png)
 
 
 使用gdb跟踪调试内核，在start_kernel处设置断点：
+
 
 ![init3](/media/2015-3-22/init3.png)
 
@@ -48,7 +50,7 @@ start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
 
 start_kernel位于内核目录下：`/init/main.c`中
 
-```c
+~~~c
 
 asmlinkage __visible void __init start_kernel(void)
 {
@@ -72,7 +74,7 @@ asmlinkage __visible void __init start_kernel(void)
 	rest_init();
 }
 
-```
+~~~~
 
 在`start_kernel()`中 Linux 将完成整个系统的内核初始化。
 内核初始化的最后一步就是启动 init 进程这个所有进程的祖先。
@@ -88,13 +90,14 @@ asmlinkage __visible void __init start_kernel(void)
 它是内核开发者人为制造出来的，而不是其他进程通过do_fork来完成。在`/init/init_task.c`中：
 
 
-```c
+~~~c
 
 /* Initial task structure */
 struct task_struct init_task = INIT_TASK(init_task);
 EXPORT_SYMBOL(init_task);
 
-```
+~~~
+
 
 这里调用宏`INIT_TASK`完成对`init_task`de赋值，不再赘述。
 这里的init_task就是0号进程，通过调试也可以看出：
@@ -107,7 +110,7 @@ EXPORT_SYMBOL(init_task);
 
 ##rest_init
 
-```c
+~~~c
 
 static noinline void __init_refok rest_init(void)
 {
@@ -137,7 +140,7 @@ static noinline void __init_refok rest_init(void)
 	cpu_startup_entry(CPUHP_ONLINE);
 }
 
-```
+~~~
 
 
 
