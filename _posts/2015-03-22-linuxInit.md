@@ -20,8 +20,8 @@ video: false
 
 
 之后的启动主要分为两个阶段
-: 1. bootloader启动阶段
-: 2. linux 内核初始化和启动阶段
+: bootloader启动阶段
+: linux 内核初始化和启动阶段
 
 
 linux内核启动的阶段主要是从`start_kernel`开始；然后`user_mode`开始，
@@ -33,24 +33,24 @@ start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
 调用了一系列的初始化函数对所有的内核组件进行初始化。
 其中，start_kernel、rest_init、kernel_init等函数构成了整个初始化过程的主线。
 
-##start_kernel
+#start_kernel
 
-使用一个[小OS](https://github.com/mengning/menu)来分析内核启动，如下图。
+- 使用一个小的[menuOS](https://github.com/mengning/menu)来分析内核启动，如下图:
 
 
 ![init1](/media/2015-3-22/init1.png)
 
 
-使用gdb跟踪调试内核，在start_kernel处设置断点：
+- 使用gdb跟踪调试内核，在start_kernel处设置断点：
 
 
 ![init3](/media/2015-3-22/init3.png)
 
 
 
-start_kernel位于内核目录下：`/init/main.c`中
+- start_kernel位于内核目录下：`/init/main.c`中
 
-~~~c
+~~~ c
 
 asmlinkage __visible void __init start_kernel(void)
 {
@@ -90,7 +90,7 @@ asmlinkage __visible void __init start_kernel(void)
 它是内核开发者人为制造出来的，而不是其他进程通过do_fork来完成。在`/init/init_task.c`中：
 
 
-~~~c
+~~~ c
 
 /* Initial task structure */
 struct task_struct init_task = INIT_TASK(init_task);
@@ -108,9 +108,14 @@ EXPORT_SYMBOL(init_task);
 `start_kernel()`在最后会调用**rest_init()**，在这里，我们的1号进程将被创建和运行.
 
 
-##rest_init
 
-~~~c
+*******
+
+
+#rest_init
+
+
+~~~ c
 
 static noinline void __init_refok rest_init(void)
 {
@@ -150,10 +155,60 @@ static noinline void __init_refok rest_init(void)
 它试图将从最早的汇编代码一直到start_kernel的执行都纳入到init_task进程上下文中。
 在rest_init函数中，内核将通过下面的代码产生第一个真正的进程(pid=1):
 
+
 `kernel_thread(kernel_init, NULL, CLONE_FS);`
+: 创建一个内核线程,实际上就是内核进程, Linux内核是不支持类似 WindowsNT一样的线程概念的。
+Linux本质上只支持进程。
+: `Kernel_thread`调用了do_fork来创建一个进程。这里的kernel_init函数:
 
+~~~ c
 
+static int __ref kernel_init(void *unused)
+{
+	int ret;
 
+	kernel_init_freeable();
+	/* need to finish all async __init code before freeing the memory */
+	async_synchronize_full();
+	free_initmem();
+	mark_rodata_ro();
+	system_state = SYSTEM_RUNNING;
+	numa_default_policy();
+
+	flush_delayed_fput();
+
+	if (ramdisk_execute_command) {
+		ret = run_init_process(ramdisk_execute_command);
+		if (!ret)
+			return 0;
+		pr_err("Failed to execute %s (error %d)\n",
+		       ramdisk_execute_command, ret);
+	}
+
+	/*
+	 * We try each of these until one succeeds.
+	 *
+	 * The Bourne shell can be used instead of init if we are
+	 * trying to recover a really broken machine.
+	 */
+	if (execute_command) {
+		ret = run_init_process(execute_command);
+		if (!ret)
+			return 0;
+		pr_err("Failed to execute %s (error %d).  Attempting defaults...\n",
+			execute_command, ret);
+	}
+	if (!try_to_run_init_process("/sbin/init") ||
+	    !try_to_run_init_process("/etc/init") ||
+	    !try_to_run_init_process("/bin/init") ||
+	    !try_to_run_init_process("/bin/sh"))
+		return 0;
+
+	panic("No working init found.  Try passing init= option to kernel. "
+	      "See Linux Documentation/init.txt for guidance.");
+}
+
+~~~
 
 
 
