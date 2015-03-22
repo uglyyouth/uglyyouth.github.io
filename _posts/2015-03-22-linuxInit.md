@@ -6,7 +6,7 @@ image: false
 video: false
 ---
 >此文仅用于MOOC`Linux内核分析`作业
-
+>
 >**张依依**+原创作品转载请注明出处 + 《Linux内核分析》**MOOC课程**http://mooc.study.163.com/course/USTC-1000029000
 
 
@@ -20,12 +20,16 @@ video: false
 
 
 之后的启动主要分为两个阶段
-: bootloader启动阶段
-: linux 内核初始化和启动阶段
+: a.bootloader启动阶段
+: b.linux 内核初始化和启动阶段
 
 
 linux内核启动的阶段主要是从`start_kernel`开始；然后`user_mode`开始，
 start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
+
+
+#start_kernel
+
 
 本文主要分析内核启动的**第一个阶段**，即从start_kernel到init进程启动；
 
@@ -33,8 +37,8 @@ start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
 调用了一系列的初始化函数对所有的内核组件进行初始化。
 其中，start_kernel、rest_init、kernel_init等函数构成了整个初始化过程的主线。
 
-#start_kernel
 
+###调试运行
 - 使用一个小的[menuOS](https://github.com/mengning/menu)来分析内核启动，如下图:
 
 
@@ -47,7 +51,7 @@ start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
 ![init3](/media/2015-3-22/init3.png)
 
 
-
+###分析
 - start_kernel位于内核目录下：`/init/main.c`中
 
 ~~~ c
@@ -80,13 +84,13 @@ asmlinkage __visible void __init start_kernel(void)
 内核初始化的最后一步就是启动 init 进程这个所有进程的祖先。
 
 
-从以上代码中可以看出start_kernel中调用到大量的init函数，来完成内核的各种初始化（省略的部分）。
+从以上代码中可以看出start_kernel中调用到**大量的**init函数，来完成内核的各种初始化（省略的部分）。
 
-在函数第一句`lockdep_init();`初始化一张lockdep hash用来实现互斥信号量后，
-**第二句**`set_task_stack_end_magic(&init_task);`
-语句则把系统中第一个进程（0号进程）作防溢出工作。
-
-这里的`init_task`在Linux中属于一个比较特殊的进程，
+其中：
+- 第一句`lockdep_init();`初始化一张lockdep hash用来实现互斥信号量后，
+- **第二句**`set_task_stack_end_magic(&init_task);`
+则把系统中第一个进程（0号进程）作防溢出工作。
+  - 这里的`init_task`在Linux中属于一个**比较特殊**的进程，
 它是内核开发者人为制造出来的，而不是其他进程通过do_fork来完成。在`/init/init_task.c`中：
 
 
@@ -98,14 +102,15 @@ EXPORT_SYMBOL(init_task);
 
 ~~~
 
+###关于init_task
 
-这里调用宏`INIT_TASK`完成对`init_task`de赋值，不再赘述。
-这里的init_task就是0号进程，通过调试也可以看出：
+1. 可以看出调用宏`INIT_TASK`完成对`init_task`的赋值，不再赘述。
+2. 这里的init_task就是0号进程，通过调试也可以看出：(init_task.pid=0)
 
 ![init5](/media/2015-3-22/init5.png)
 
 
-`start_kernel()`在最后会调用**rest_init()**，在这里，我们的1号进程将被创建和运行.
+**`start_kernel()`在最后会调用rest_init()，在这里，我们的1号进程将被创建和运行.**
 
 
 
@@ -114,6 +119,12 @@ EXPORT_SYMBOL(init_task);
 
 #rest_init
 
+从rest_init开始，Linux开始产生进程，因为init_task是静态制造出来的，pid=0，
+它试图将从最早的汇编代码一直到start_kernel的执行都纳入到init_task进程上下文中。
+在rest_init函数中，内核将通过下面的代码产生第一个真正的进程(pid=1):
+
+
+`rest_init`同样位于目录`/init/main.c`中。
 
 ~~~ c
 
@@ -148,18 +159,10 @@ static noinline void __init_refok rest_init(void)
 ~~~
 
 
-
-`rest_init`同样位于目录`/init/main.c`中。
-
-从rest_init开始，Linux开始产生进程，因为init_task是静态制造出来的，pid=0，
-它试图将从最早的汇编代码一直到start_kernel的执行都纳入到init_task进程上下文中。
-在rest_init函数中，内核将通过下面的代码产生第一个真正的进程(pid=1):
-
-
-`kernel_thread(kernel_init, NULL, CLONE_FS);`
-: 创建一个内核线程,实际上就是内核进程, Linux内核是不支持类似 WindowsNT一样的线程概念的。
+###关于`kernel_thread(kernel_init, NULL, CLONE_FS);`
+1. 创建一个内核线程,实际上就是内核进程, Linux内核是不支持类似 WindowsNT一样的线程概念的。
 Linux本质上只支持进程。
-: `Kernel_thread`调用了do_fork来创建一个进程。这里的kernel_init函数:
+2. `Kernel_thread`调用了do_fork来创建一个进程。这里的kernel_init函数:
 
 ~~~ c
 
