@@ -17,7 +17,7 @@ author:
   name:		'uglyyouth'
   url:    uglyyouth.com
 
-paginate:	5
+paginate:	10
 
 # Custom vars
 icon:		/assets/images/icon.png
