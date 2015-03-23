@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Linux内核启动分析"
-quote:
+quote: "总体来说，Linux的启动过程是复杂的。`CPU`启动时从内存的最高地址获取第一道指令的硬件设计，
+即ROM芯片上的**BIOS**。在X86中，即`CS:EIP=FFFF:0000H`。"
 image: false
 video: false
 ---
