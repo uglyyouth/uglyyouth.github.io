@@ -189,7 +189,7 @@ h3 {
 	font-family: Fenix, Georgia, "Times New Roman", serif;
 	font-weight: 400;
 	letter-spacing: 0px;
-	font-size: 20px;
+	font-size: 18px;
 	color: #313131;
 	line-height: 1.5;
 	position: relative;
@@ -294,7 +294,7 @@ code, pre {
 
 code {
 	padding: .25em .5em;
-	font-size: 85%;
+	font-size: 60%;
 	color: #bf616a;
 	border-radius: 3px;
 }
@@ -503,7 +503,7 @@ pre code {
 	padding-bottom: 80px;
 	font-weight: 400;
 	letter-spacing: 0px;
-	font-size: 20pt;
+	font-size: 18pt;
 	color: #313131;
 	line-height: 1.5;
 	position: relative;
