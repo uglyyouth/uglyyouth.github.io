@@ -288,7 +288,7 @@ blockquote p {
 }
 
 code, pre {
-	font-family: Menlo, Monaco, "Courier New", monospace;
+	font-family: "Courier New", monospace;
 	background-color: #f9f9f9;
 }
 
