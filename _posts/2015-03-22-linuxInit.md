@@ -51,7 +51,7 @@ start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
 ###分析
 - start_kernel位于内核目录下：`/init/main.c`中
 
-~~~ c
+{% highlight c %}
 
 asmlinkage __visible void __init start_kernel(void)
 {
@@ -74,8 +74,7 @@ asmlinkage __visible void __init start_kernel(void)
 	/* Do the rest non-__init'ed, we're now alive */
 	rest_init();
 }
-
-~~~~
+{% endhighlight %}
 
 在`start_kernel()`中 Linux 将完成整个系统的内核初始化。
 内核初始化的最后一步就是启动 init 进程这个所有进程的祖先。
@@ -92,13 +91,12 @@ asmlinkage __visible void __init start_kernel(void)
 它是内核开发者人为制造出来的，而不是其他进程通过do_fork来完成。在`/init/init_task.c`中：
 
 
-~~~ c
+{% highlight c %}
 
 /* Initial task structure */
 struct task_struct init_task = INIT_TASK(init_task);
 EXPORT_SYMBOL(init_task);
-
-~~~
+{% endhighlight %}
 
 ###关于`init_task`
 
@@ -124,7 +122,7 @@ EXPORT_SYMBOL(init_task);
 
 `rest_init`同样位于目录`/init/main.c`中。
 
-~~~ c
+{% highlight c %}
 
 static noinline void __init_refok rest_init(void)
 {
@@ -154,15 +152,14 @@ static noinline void __init_refok rest_init(void)
 	cpu_startup_entry(CPUHP_ONLINE);
 }
 
-~~~
-
+{% endhighlight %}
 
 ###关于`kernel_thread(kernel_init, NULL, CLONE_FS);`
 1. 创建一个内核线程,实际上就是内核进程, Linux内核是不支持类似 WindowsNT一样的线程概念的。
 Linux本质上只支持进程。
 2. `Kernel_thread`调用了do_fork来创建一个进程。这里的kernel_init函数:
 
-~~~ c
+{% highlight c %}
 
 static int __ref kernel_init(void *unused)
 {
@@ -182,8 +179,7 @@ static int __ref kernel_init(void *unused)
 
   ...
 
-
-~~~
+{% endhighlight %}
 
 这里的`run_init_process`就是通过 execve()来运行kernel_init 程序。
 
@@ -208,7 +204,7 @@ static int __ref kernel_init(void *unused)
 rest_init最后`cpu_startup_entry(CPUHP_ONLINE);`：
 
 
-~~~ c
+{% highlight c %}
 
 void cpu_startup_entry(enum cpuhp_state state)
 {
@@ -216,8 +212,8 @@ void cpu_startup_entry(enum cpuhp_state state)
 	arch_cpu_idle_prepare();
 	cpu_idle_loop();
 }
+{% endhighlight %}
 
-~~~
 
 此函数是一个while(1)循环，即为我们的0号进程。
 
