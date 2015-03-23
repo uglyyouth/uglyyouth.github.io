@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Study less,learn more读书笔记"
-quote:
+quote: "总的来说,这是一本目的性很强的指导性书籍,并且囊括很多方面的知识.很遗憾现在才把这本书阅读完,向更多的人推荐它,5星哦亲:)"
 image: false
 video: false
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "瞬息万变的指令系统"
-quote:
+quote: "为了能够更加明了地分析计算机的工作，以下从一个C语言程序的反汇编代码来说明"
 image: false
 video: false
 ---
