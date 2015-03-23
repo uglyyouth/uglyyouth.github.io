@@ -295,7 +295,7 @@ code, pre {
 
 code {
 	padding: .20em .3em;
-	font-size: 80%;
+	font-size: 90%;
 	color: #bf616a;
 	border-radius: 3px;
 }
@@ -318,7 +318,7 @@ pre code {
 }
 
 .highlight {
-	font-size: 12px;
+	font-size: 80%;
 	margin-bottom: 1rem;
 	border-radius: 4px;
 }
