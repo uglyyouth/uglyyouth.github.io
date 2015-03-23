@@ -290,12 +290,12 @@ blockquote p {
 code, pre {
 	font-family: "Courier New", monospace;
 	background-color: #f9f9f9;
-	font-size: 12px;
+	
 }
 
 code {
 	padding: .20em .3em;
-	font-size: 100%;
+	font-size: 14px;
 	color: #bf616a;
 	border-radius: 3px;
 }
