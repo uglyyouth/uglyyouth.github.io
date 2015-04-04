@@ -103,6 +103,9 @@ Linux的内核和System Call不好调试。简单来说，如果想在本机调�
 
 PS:具体参考：[step into system call source code](http://stackoverflow.com/questions/5999205/cannot-step-into-system-call-source-code),这里不再赘述。
 
+####5.Linux系统Interactive map
+![syscall4](/media/2015-4-4/syscall3.png)
+
 
 #二.分析
 
@@ -215,7 +218,7 @@ ENDPROC(system_call)
 {% endhighlight %}
 
 
-1. 这段代码首先做了保存上下文的工作，主要是通过一个宏`SAVE ALL`实现的(还有pushl_cfi %eax).在中断发生前夕，要把所有相关寄存器的内容都保存在堆栈中,这是通过SAVE_ALL宏完成的
+1. 这段代码首先做了保存上下文的工作，主要是通过一个宏`SAVE ALL`实现的.在中断发生前夕，要把所有相关寄存器的内容都保存在堆栈中,这是通过SAVE_ALL宏完成的
 2. `GET_THREAD_INFO(%ebp)` 将当前信息保存在ebp
 3. `testl $_TIF_WORK_SYSCALL_ENTRY,TI_flags(%ebp)  
   jnz syscall_trace_entry `
