@@ -42,11 +42,11 @@ Linux中ELF支持两种类型的库，每一种库都有各自的优缺点:
 
 #GDB
 
-设置以下断点:
+- 设置以下断点:
 
 ![sysexecve1](/media/2015-4-18/sysexecve1.png)
 
-在MenuOS执行exec后,中断情况如下:
+- 在MenuOS执行exec后,中断情况如下:
 
 ![sysexecve2](/media/2015-4-18/sysexecve2.png)
 
@@ -54,23 +54,23 @@ Linux中ELF支持两种类型的库，每一种库都有各自的优缺点:
 
 ![sysexecve4](/media/2015-4-18/sysexecve4.png)
 
-进入**search_binary_handler**后可以查看一些变量情况:比如fmt,bprm
+- 进入**search_binary_handler**后可以查看一些变量情况:比如fmt,bprm
 
 ![sysexecve5](/media/2015-4-18/sysexecve5.png)
 
 ![sysexecve6](/media/2015-4-18/sysexecve6.png)
 
-进入**start_thread**后使用po命令,可以看到new_ip处:
+- 进入**start_thread**后使用po命令,可以看到new_ip处:
 
 ![sysexecve9](/media/2015-4-18/sysexecve9.png)
 
-在改变regs前后查看regs:
+- 在改变regs前后查看regs:
 
 ![sysexecve7](/media/2015-4-18/sysexecve7.png)
 
 ![sysexecve8](/media/2015-4-18/sysexecve8.png)
 
-继续跟踪可以看到在执行do_notify_resume后,进入0x08048d0a处,即之前的new_ip处(hello的入口地址):
+- 继续跟踪可以看到在执行do_notify_resume后,进入`0x08048d0a`处,即之前的new_ip处(hello的入口地址):
 
 ![sysexecve10](/media/2015-4-18/sysexecve10.png)
 
@@ -85,7 +85,7 @@ Linux中ELF支持两种类型的库，每一种库都有各自的优缺点:
 do_execve -> do_execve_common ->  exec_binprm
 ~~~
 
-- **syscall**
+#### **syscall**
     {% highlight c %}
         SYSCALL_DEFINE3(execve,
         		const char __user *, filename,
@@ -98,7 +98,7 @@ do_execve -> do_execve_common ->  exec_binprm
 
     {% endhighlight %}
 
-- **do_execve**
+#### **do_execve**
 
     {% highlight c %}
         int do_execve(struct filename *filename,
@@ -112,7 +112,7 @@ do_execve -> do_execve_common ->  exec_binprm
         }
     {% endhighlight %}
 
-- **do_execve_common**
+#### **do_execve_common**
 
     {% highlight c %}
 
@@ -172,12 +172,12 @@ do_execve -> do_execve_common ->  exec_binprm
         }
             {% endhighlight %}
 
-        
+
 - 关于**linux_binprm**保存要执行的文件相关的参数,包括argc,envc,*filename,*interp等
 - `exec_binprm`在保存了bprm后调用该函数来进一步操作,这个函数除了保存pid以外,还执行了`ret = search_binary_handler(bprm);`来查询能够处理相应可执行文件格式的处理器，并调用相应的load_binary方法以启动进程。
 
 
-- **search_binary_handler**
+#### **search_binary_handler**
     {% highlight c %}
             int search_binary_handler(struct linux_binprm *bprm)
         {
@@ -213,7 +213,7 @@ do_execve -> do_execve_common ->  exec_binprm
     {% endhighlight %}
 
 
-- **load_elf_binary**
+#### **load_elf_binary**
 
     {% highlight c %}
     static int load_elf_binary(struct linux_binprm *bprm)
@@ -281,7 +281,7 @@ do_execve -> do_execve_common ->  exec_binprm
 
 当**load_elf_binary()**执行完毕，返回至do_execve()在返回至sys_execve()时，系统调用的返回地址已经被改写成了被装载的ELF程序的入口地址了。
 
-- 可执行文件开始执行的起点在哪里？
+####可执行文件开始执行的起点在哪里？
 
 当sys_execve()系统调用从内核态返回到用户态时，EIP寄存器直接跳转到ELF程序的入口地址。
 
