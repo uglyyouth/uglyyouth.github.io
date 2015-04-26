@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Linux内核如何装载和启动一个可执行程序"
-quote: "ELF在计算机科学中，是一种用于执行档、目的档、共享库和核心转储的标准文件格式。"
+title: "进程调度与进程切换过程"
+quote: ""
 image: false
 video: false
 ---
