@@ -13,7 +13,7 @@ video: false
 *****
 
 
-#ELF
+# ELF
 
 [可执行和可链接格式](http://en.wikipedia.org/wiki/Executable_and_Linkable_Format)   (Executable and Linkable Format，缩写为ELF)，常被称为`ELF`格式，在计算机科学中，是一种用于执行档、目的档、共享库和核心转储的标准文件格式。
 
@@ -28,7 +28,7 @@ ELF文件由 ELF header和文件数据组成.文件数据包括:
 ![ELF](/media/2015-4-18/Elf-layout--en.svg.png)
 
 
-#动态&静态
+# 动态&静态
 当用户启动一个应用程序时，它们正在调用一个可执行和链接格式映像。
 Linux中ELF支持两种类型的库，每一种库都有各自的优缺点:
 
@@ -40,7 +40,7 @@ Linux中ELF支持两种类型的库，每一种库都有各自的优缺点:
 而动态链接分为可执行程序**装载时**动态链接和**运行时**动态链接.
 
 
-#GDB
+# GDB
 
 - 设置以下断点:
 
@@ -77,7 +77,7 @@ Linux中ELF支持两种类型的库，每一种库都有各自的优缺点:
 ![sysexecve11](/media/2015-4-18/sysexecve11.png)
 
 
-#分析sys_execve
+# 分析sys_execve
 
 当`sys_execve`被调用后,涉及的主要函数为:
 
@@ -281,15 +281,15 @@ do_execve -> do_execve_common ->  exec_binprm
 
 当**load_elf_binary()**执行完毕，返回至do_execve()在返回至sys_execve()时，系统调用的返回地址已经被改写成了被装载的ELF程序的入口地址了。
 
-####可执行文件开始执行的起点在哪里？
+#### 可执行文件开始执行的起点在哪里？
 
 当sys_execve()系统调用从内核态返回到用户态时，EIP寄存器直接跳转到ELF程序的入口地址。
 
-#总结
+# 总结
 1. linux通过sys_execve()系统调用从文件系统中读取、识别并加载**elf**
 2. 调用sys_execve后,执行过程:do_execve -> do_execve_common -> exec_binprm->load_elf_binary()->sys_close
 3. 根据elf的库类型,elf_entry不一样.**load_elf_binary**通过解析器将不同的入口地址写入.
 
-#参考
+# 参考
 1. [Linkers and Loaders](http://www.iecc.com/linker/)
 2. [ELF在Linux下的加载过程](http://blog.csdn.net/joker0910/article/details/7686836)

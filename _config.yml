@@ -17,7 +17,7 @@ author:
   name:		'uglyyouth'
   url:    uglyyouth.com
 
-paginate:	10
+paginate:	20
 
 # Custom vars
 icon:		/assets/images/icon.png
@@ -30,9 +30,7 @@ social:
     url:	https://github.com/uglyyouth
     desc:	Fork me on github
 
-  - icon: feed
-    url:  http://uglyyouth/atom.xml
-    desc: Subscribe to my feed
+
 
 
 

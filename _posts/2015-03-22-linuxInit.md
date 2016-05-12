@@ -13,7 +13,7 @@ video: false
 *****
 
 
-#以下为正文
+# 以下为正文
 
 总体来说，Linux的启动过程是复杂的。`CPU`启动时从内存的最高地址获取第一道指令的硬件设计，
 即ROM芯片上的**BIOS**。在X86中，即`CS:EIP=FFFF:0000H`。
@@ -28,14 +28,14 @@ linux内核启动的阶段主要是从`start_kernel`开始；然后`user_mode`�
 start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
 
 
-#一.start_kernel
+# 一.start_kernel
 
 
 本文主要分析内核启动的**第一个阶段**，即从**start_kernel到init进程**启动；
 
 
 
-###调试运行
+### 调试运行
 - 使用一个小的[menuOS](https://github.com/mengning/menu)来分析内核启动，如下图:
 
 
@@ -48,7 +48,7 @@ start_kernel结束;最后加载linux内核完毕，转入`cpu_idle`进程。
 ![init3](/media/2015-3-22/init3.png)
 
 
-###分析
+### 分析
 - start_kernel位于内核目录下：`/init/main.c`中
 
 {% highlight c %}
@@ -98,7 +98,7 @@ struct task_struct init_task = INIT_TASK(init_task);
 EXPORT_SYMBOL(init_task);
 {% endhighlight %}
 
-###关于`init_task`
+### 关于`init_task`
 
 1. 可以看出调用宏`INIT_TASK`完成对`init_task`的赋值，不再赘述。
 2. 这里的init_task就是0号进程，通过调试也可以看出：(init_task.pid=0)
@@ -113,7 +113,7 @@ EXPORT_SYMBOL(init_task);
 *******
 
 
-#二.rest_init
+# 二.rest_init
 
 从rest_init开始，Linux开始产生进程，因为init_task是静态制造出来的，pid=0，
 它试图将从最早的汇编代码一直到start_kernel的执行都纳入到init_task进程上下文中。
@@ -154,7 +154,7 @@ static noinline void __init_refok rest_init(void)
 
 {% endhighlight %}
 
-###关于`kernel_thread(kernel_init, NULL, CLONE_FS);`
+### 关于`kernel_thread(kernel_init, NULL, CLONE_FS);`
 1. 创建一个内核线程,实际上就是内核进程, Linux内核是不支持类似 WindowsNT一样的线程概念的。
 Linux本质上只支持进程。
 2. `Kernel_thread`调用了do_fork来创建一个进程。这里的kernel_init函数:
@@ -185,7 +185,7 @@ static int __ref kernel_init(void *unused)
 
 这里首先运行“/sbin/init”,如果失败再运行“/etc/init”,然后是 “/bin/init”,然后是“/bin/sh”(也就是说,init 可执行文件可以放在上面代码中寻找的 4 个目录中都可以),如果都失败,则可以通过在系统 启动时在添加的启动参数来指定 init,比如 init=/home/wzhou/init。这里是内核初始化结束并开始用户态初始化的阴阳界。
 
-###关于1号进程
+### 关于1号进程
 
 调试rest_init函数，单步跟踪到`pid = kernel_thread(kthreadd, NULL, CLONE_FS | CLONE_FILES);`语句，临时变量pid记录了进程号：
 
@@ -199,7 +199,7 @@ static int __ref kernel_init(void *unused)
 ![init7](/media/2015-3-22/init7.png)
 
 
-###关于`cpu_idle_loop`
+### 关于`cpu_idle_loop`
 
 rest_init最后`cpu_startup_entry(CPUHP_ONLINE);`：
 
@@ -224,7 +224,7 @@ void cpu_startup_entry(enum cpuhp_state state)
 *******
 
 
-#总结
+# 总结
 
 
 1. 正如前面所分析的那样，内核的初始化过程由`start_kernel`函数开始，

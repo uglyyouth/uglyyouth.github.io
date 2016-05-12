@@ -15,7 +15,7 @@ video: false
 
 
 
-#一.调试sys_mkdir
+# 一.调试sys_mkdir
 根据上周使用的C以及嵌入式汇编实现系统调用的代码改写:[menuOS](https://github.com/mengning/menu).
 
 对`test.c`进行改写，增加**mkdir1**(c语言实现)，**mkdir2**(嵌入式汇编实现)。具体代码如下：
@@ -82,16 +82,16 @@ int main()
 
 {% endhighlight %}
 
-####1.执行后，效果如下：
+#### 1.执行后，效果如下：
 ![syscall1](/media/2015-4-4/syscall1.png)
 
-####2.使用gdb调试，设置断点`sys_mkdir`
+#### 2.使用gdb调试，设置断点`sys_mkdir`
 ![syscall2](/media/2015-4-4/syscall4.png)
 
-####3.如果继续单步运行，接下来的代码无法调试
+#### 3.如果继续单步运行，接下来的代码无法调试
 ![syscall3](/media/2015-4-4/syscall5.png)
 
-####4.关于System_call的调试
+#### 4.关于System_call的调试
 Linux的内核和System Call不好调试。简单来说，如果想在本机调试system call，那么当你进入system call时，系统已经在挂起状态了。如下所说：
 
 >Debugging on Linux is implemented via the ptrace(2) system call; ptrace can only inspect and stop processes running in userspace. I would expect that FreeBSD's process debugging mechanism is similar, and only designed to work on userspace processes: because the OS kernel will acquire and release locks as well as respond to interrupts quickly, designing the kernel to allow full-featured debugging from userspace seems very unlikely.
@@ -107,7 +107,7 @@ PS:具体参考：[step into system call source code](http://stackoverflow.com/q
 ![syscall4](/media/2015-4-4/syscall3.png)
 
 
-#二.分析
+# 二.分析
 
 `sys_call`实现的汇编代码：
 
@@ -236,7 +236,7 @@ ENDPROC(system_call)
 
 
 
-#总结
+# 总结
 
 1. 使用中断方式的系统调用的简单流程：
 ![syscall process](https://www.ibm.com/developerworks/linux/library/l-system-calls/figure1.gif)
@@ -252,7 +252,7 @@ ENDPROC(system_call)
   - 当到达内核态后，操作系统需要严格检查系统调用传递的参数，确保不破坏整个系统的安全性；
   - 执行系统调用可导致进程等待某事件发生，从而可引起进程切换；
 
-##参考
+## 参考
 1. [内核调试](http://my.oschina.net/fgq611/blog/113249)
 2. [System Call](http://en.wikipedia.org/wiki/System_call)
 3. [AT&T](http://blog.csdn.net/yayong/article/details/139983)
