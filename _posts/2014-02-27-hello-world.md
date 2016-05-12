@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Hello,My Blog”
-quote:
+quote: Be Smart. Be Generous. Be Thoughtful.
 image: false
 video: false
 ---
