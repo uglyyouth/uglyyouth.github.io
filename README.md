@@ -9,4 +9,4 @@ Theme:
 ## About
 Github pages。
 
-访问:[uglyyouth](uglyyouth.com)
+访问:[uglyyouth](http://uglyyouth.com)
