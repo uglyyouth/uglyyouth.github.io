@@ -21,4 +21,4 @@ Thanks for `Camporez`(An amazing Jekyll theme's writer) and cute [Github](http:/
 
 1. [weibo](http://weibo.com/uglyyouth)
 2. [Github](https://github.com/uglyyouth)
-3.邮箱: `uglyyouth@gmail.com`
+3. 邮箱: `uglyyouth@gmail.com`
