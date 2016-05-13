@@ -19,4 +19,6 @@ Thanks for `Camporez`(An amazing Jekyll theme's writer) and cute [Github](http:/
 
 ## Contact me
 
-<div markdown="0"><a href="http://weibo.com/uglyyouth" class="btn">我的WEIBO</a></div>
+1. <div markdown="0"><a href="http://weibo.com/uglyyouth" class="btn">我的WEIBO</a></div>
+2. <div markdown="0"><a href="https://github.com/uglyyouth" class="btn">我的github</a></div>
+3.邮箱: [uglyyouth@gmail.com](uglyyouth@gmail.com)
